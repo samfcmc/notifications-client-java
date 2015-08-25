@@ -104,15 +104,16 @@ NotificationsClient client = NotificationsClientFactory.getClientFromPropertiesF
 NotificationPayload.Builder builder = new NotificationPayload.Builder();
 build.link("link").image("url of an image").type("string type").description("EN", "description text in english");
 
+String username1 = "username1";
+String username2 = "username2";
 List<String> usernames = new ArrayList<>();
-usernames.add("username1");
-usernames.add("username2");
-
+usernames.add(username1);
+usernames.add(username2);
 // Sending a notification to multiple users
 client.postNotification(usernames, builder.build());
 
 // Sending a notification to just one user
-client.postNotification(usernames[0], builder.build());
+client.postNotification(username1, builder.build());
 ```
 
 The `image` and `link` attributes are optional. However, `type` and `description` are mandatory. If you try to build a `NotificationPayload` object without specifying the`type` and, at least, one description in one language, it will raise an exception.
