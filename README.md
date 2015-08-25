@@ -116,7 +116,7 @@ client.postNotification(usernames, builder.build());
 client.postNotification(username1, builder.build());
 ```
 
-The `image` and `link` attributes are optional. However, `type` and `description` are mandatory. If you try to build a `NotificationPayload` object without specifying the`type` and, at least, one description in one language, it will raise an exception.
+The `image` and `link` attributes are optional. However, `type` and `description` are mandatory. If you try to build a `NotificationPayload` object without specifying the`type` and, at least, one `description` in one language, it will raise an exception.
 
 You can provide a description in more than one language:
 
