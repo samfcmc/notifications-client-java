@@ -12,7 +12,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.async.Callback;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class RemoteNotificationsClient implements NotificationsClient {
@@ -55,11 +58,23 @@ public class RemoteNotificationsClient implements NotificationsClient {
 
     private void invokePost(String endpoint, String body) throws NotificationsClientException {
         String url = getEndpointUrl(endpoint);
-        try {
-            Unirest.post(url).headers(headers).body(body).asString();
-        } catch (UnirestException e) {
-            throw new NotificationsClientException();
-        }
+        Unirest.post(url).headers(headers).body(body).asJsonAsync(new Callback<JsonNode>() {
+
+            @Override
+            public void failed(UnirestException exception) {
+                // TODO If this fails, the notification should be stored persistently
+            }
+
+            @Override
+            public void completed(HttpResponse<JsonNode> response) {
+                // Nothing to do here
+            }
+
+            @Override
+            public void cancelled() {
+                // Nothing to do here
+            }
+        });
     }
 
     private void invokePost(String endpoint, JsonElement jsonBody) throws NotificationsClientException {
