@@ -1,0 +1,27 @@
+package org.fenixedu.bennu.notifications.client.domain;
+
+class PendingNotification {
+	JsonElement payload;
+	JsonElement usernames;
+}
+
+class NotificationsSystem {
+}
+
+relation NotificationsSystemHasPendingNotifications {
+	PendingNotification playsRole pendingNotification {
+		multiplicity *;
+	}
+	NotificationsSystem playsRole notificationsSystem {
+		multiplicity 1..1;
+	}
+}
+
+relation PendingNotifications {
+    .pt.ist.fenixframework.DomainRoot playsRole root {
+    	multiplicity 0..1;
+    }
+    NotificationsSystem playsRole notificationsSystem { 
+    	multiplicity 0..1; 
+    }
+}
