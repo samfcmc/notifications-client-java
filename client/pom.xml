@@ -40,6 +40,11 @@
 			<artifactId>unirest-java</artifactId>
 			<version>1.4.5</version>
 		</dependency>
+		<dependency>
+			<groupId>org.fenixedu</groupId>
+			<artifactId>notifications-client-backend</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 </project>

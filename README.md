@@ -96,32 +96,28 @@ After you have instantiated the `NotificationsClient` class you can use that ins
 
 In order to create a notification you need to provide the username(s) of the user(s) to who you want to send notifications and the payload. The payload is just a Json object with some properties that the server stores and consumers use to show the notifications in a proper way. You don't need to know the struture of this object. We have a builder to help you create this payload in a structured way.
 
-To create this payload you need to use `NotificationPayload.Builder` class. Here you have a full example of what to do in your code to send a notification to some users.
+To create this payload you need to use `Notification.Builder` class. Here you have a full example of what to do in your code to send a notification to some users.
 
 ```java
 NotificationsClient client = NotificationsClientFactory.getClientFromPropertiesFile();
 
-NotificationPayload.Builder builder = new NotificationPayload.Builder();
-build.link("link").image("url of an image").type("string type").description("EN", "description text in english");
-
 String username1 = "username1";
 String username2 = "username2";
-List<String> usernames = new ArrayList<>();
-usernames.add(username1);
-usernames.add(username2);
-// Sending a notification to multiple users
-client.postNotification(usernames, builder.build());
 
-// Sending a notification to just one user
-client.postNotification(username1, builder.build());
+Notification.Builder builder = new Notification.Builder();
+build.link("link").image("url of an image").type("string type").description("EN", "description text in english").usernames("username1", "username2", ....);
+
+// Sending a notification to multiple users
+client.postNotification(builder.build());
 ```
 
-The `image` and `link` attributes are optional. However, `type` and `description` are mandatory. If you try to build a `NotificationPayload` object without specifying the`type` and, at least, one `description` in one language, it will raise an exception.
+The `image` and `link` attributes are optional. However, `type` and `description`, and `usernames` are mandatory. If you try to build a `NotificationPayload` object without specifying the`type`, with at least, one `description` in one language and with, at least, one username, it will raise an exception.
 
 You can provide a description in more than one language:
 
 ```java
 // Provide a description in english
 builder.description("EN", "Description in english");
+// Provide a description in portuguese
 builder.description("PT", "Descrição em português");
 ```

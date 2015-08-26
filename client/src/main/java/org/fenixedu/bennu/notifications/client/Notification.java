@@ -1,19 +1,23 @@
-package org.fenixedu.bennu.notifications.client.payload;
+package org.fenixedu.bennu.notifications.client;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import org.fenixedu.bennu.notifications.client.payload.exception.NoDescriptionProvidedException;
 import org.fenixedu.bennu.notifications.client.payload.exception.NoTypeProvidedException;
+import org.fenixedu.bennu.notifications.client.payload.exception.NoUsernamesProvidedException;
 
-public class NotificationPayload {
+public class Notification {
 
     private String link;
     private String type;
     private Map<String, String> descriptions;
     private String image;
+    private Collection<String> usernames;
 
-    private NotificationPayload(Builder builder) {
+    private Notification(Builder builder) {
         // Validate mandatory arguments
         if (builder.descriptions.isEmpty()) {
             throw new NoDescriptionProvidedException();
@@ -21,11 +25,15 @@ public class NotificationPayload {
         if (builder.type == null) {
             throw new NoTypeProvidedException();
         }
+        if (builder.usernames.isEmpty()) {
+            throw new NoUsernamesProvidedException();
+        }
 
         this.link = builder.link;
         this.type = builder.type;
         this.descriptions = builder.descriptions;
         this.image = builder.image;
+        this.usernames = builder.usernames;
     }
 
     public String getLink() {
@@ -48,6 +56,10 @@ public class NotificationPayload {
         return descriptions.get(language);
     }
 
+    public Collection<String> getUsernames() {
+        return usernames;
+    }
+
     /*
      * Builder
      */
@@ -55,6 +67,7 @@ public class NotificationPayload {
 
         private Map<String, String> descriptions;
         private String type;
+        private Collection<String> usernames;
 
         //Optional
         private String link;
@@ -62,6 +75,7 @@ public class NotificationPayload {
 
         public Builder() {
             this.descriptions = new HashMap<>();
+            this.usernames = new LinkedList<>();
         }
 
         public Builder link(String link) {
@@ -84,8 +98,22 @@ public class NotificationPayload {
             return this;
         }
 
-        public NotificationPayload build() {
-            return new NotificationPayload(this);
+        public Builder usernames(String... usernames) {
+            for (String username : usernames) {
+                this.usernames.add(username);
+            }
+            return this;
+        }
+
+        public Builder usernames(Collection<String> usernames) {
+            for (String username : usernames) {
+                this.usernames.add(username);
+            }
+            return this;
+        }
+
+        public Notification build() {
+            return new Notification(this);
         }
     }
 
