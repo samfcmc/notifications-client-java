@@ -1,4 +1,4 @@
-package org.fenixedu.bennu.notifications.client.domain;
+package org.fenixedu.notifications.client.ff.domain;
 
 import pt.ist.fenixframework.FenixFramework;
 
@@ -6,6 +6,7 @@ public class NotificationsSystem extends NotificationsSystem_Base {
 
     private NotificationsSystem() {
         super();
+        setRoot(FenixFramework.getDomainRoot());
     }
 
     public static NotificationsSystem getInstance() {

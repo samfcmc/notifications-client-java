@@ -1,4 +1,4 @@
-package org.fenixedu.bennu.notifications.client.domain;
+package org.fenixedu.notifications.client.ff.domain;
 
 class PendingNotification {
 	JsonElement payload;
