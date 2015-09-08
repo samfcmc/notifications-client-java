@@ -5,11 +5,11 @@
 
 	<parent>
 		<groupId>org.fenixedu</groupId>
-		<artifactId>notifications-client-java</artifactId>
+		<artifactId>bennu-notifications-client</artifactId>
 		<version>1.0</version>
 	</parent>
 
-	<artifactId>notifications-client-ff</artifactId>
+	<artifactId>bennu-notifications-client-ff</artifactId>
 	<packaging>jar</packaging>
 
 	<name>Notifications Client FF</name>
@@ -18,7 +18,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.fenixedu</groupId>
-			<artifactId>bennu-notifications-client</artifactId>
+			<artifactId>bennu-notifications-client-java</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
