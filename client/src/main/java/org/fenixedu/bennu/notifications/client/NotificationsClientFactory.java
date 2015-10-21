@@ -11,7 +11,7 @@ public class NotificationsClientFactory {
     }
 
     public static NotificationsClient getClientFromPropertiesFile(String filename, NotificationsClientBackend backend) {
-        RemoteClientConfig config = RemoteClientConfig.fromPropertiesFile(filename);
+        ClientConfig config = ClientConfig.fromPropertiesFile(filename);
         return new RemoteNotificationsClient(config, backend);
     }
 
@@ -20,7 +20,7 @@ public class NotificationsClientFactory {
     }
 
     public static NotificationsClient getClient(String url, String appId, String appSecret, NotificationsClientBackend backend) {
-        RemoteClientConfig config = new RemoteClientConfig(url, appId, appSecret);
+        ClientConfig config = new ClientConfig(url, appId, appSecret);
         return new RemoteNotificationsClient(config, backend);
     }
 

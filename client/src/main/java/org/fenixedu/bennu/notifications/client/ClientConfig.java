@@ -7,13 +7,13 @@ import java.util.Properties;
 import org.fenixedu.bennu.notifications.client.exception.ErrorReadingConfigurationFileException;
 import org.fenixedu.bennu.notifications.client.exception.PropertiesFileNotFound;
 
-public class RemoteClientConfig {
+public class ClientConfig {
 
     private String url;
     private String appId;
     private String appSecret;
 
-    public RemoteClientConfig(String url, String appId, String appSecret) {
+    public ClientConfig(String url, String appId, String appSecret) {
         this.url = url;
         this.appId = appId;
         this.appSecret = appSecret;
@@ -35,9 +35,9 @@ public class RemoteClientConfig {
         return appSecret;
     }
 
-    public static RemoteClientConfig fromPropertiesFile(String filename) {
+    public static ClientConfig fromPropertiesFile(String filename) {
         Properties properties = new Properties();
-        InputStream inputStream = RemoteClientConfig.class.getClassLoader().getResourceAsStream(filename);
+        InputStream inputStream = ClientConfig.class.getClassLoader().getResourceAsStream(filename);
         if (inputStream == null) {
             throw new PropertiesFileNotFound(filename);
         } else {
@@ -49,7 +49,7 @@ public class RemoteClientConfig {
             String url = properties.getProperty("url");
             String appId = properties.getProperty("appId");
             String appSecret = properties.getProperty("appSecret");
-            return new RemoteClientConfig(url, appId, appSecret);
+            return new ClientConfig(url, appId, appSecret);
         }
     }
 }

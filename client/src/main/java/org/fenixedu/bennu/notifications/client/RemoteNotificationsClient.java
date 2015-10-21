@@ -16,12 +16,12 @@ import com.mashape.unirest.http.async.Callback;
 
 public class RemoteNotificationsClient implements NotificationsClient {
 
-    private RemoteClientConfig config;
+    private ClientConfig config;
     private static final String NOTIFICATIONS_ENDPOINT = "/api/notifications";
     private Map<String, String> headers;
     private NotificationsClientBackend backend;
 
-    public RemoteNotificationsClient(RemoteClientConfig config, NotificationsClientBackend backend) {
+    public RemoteNotificationsClient(ClientConfig config, NotificationsClientBackend backend) {
         this.config = config;
         this.headers = new HashMap<>();
         this.headers.put("Content-type", "application/json");
@@ -50,6 +50,11 @@ public class RemoteNotificationsClient implements NotificationsClient {
     public void postNotification(Notification notification) throws NotificationsClientException {
         JsonObject json = getJsonNotification(notification);
         invokePost(NOTIFICATIONS_ENDPOINT, json, new PostNotificationCallback(notification, backend));
+    }
+
+    @Override
+    public ClientConfig getConfig() {
+        return config;
     }
 
 }
