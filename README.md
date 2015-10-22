@@ -5,8 +5,24 @@ Java Client for the [Notifications Service](https://github.com/samfcmc/bennu-not
 
 NOTE: This is not a consumer. The Client just creates and sends notifications. It does not "consume" them. This client stores the notifications when the notifications service is down or returns an error. It can store in memory or it can use a MySQL database. If you want to use the second option you need a MySQL server running and create a database.
 
-Installation
-============
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Installation](#installation)
+  - [In memory storage](#in-memory-storage)
+  - [Persistent storage](#persistent-storage)
+- [Requirements](#requirements)
+- [Usage](#usage)
+  - [Configure a database](#configure-a-database)
+  - [Instantiate the client](#instantiate-the-client)
+    - [Using a properties file](#using-a-properties-file)
+    - [Passing the needed parameters directly](#passing-the-needed-parameters-directly)
+  - [Send a notification](#send-a-notification)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Installation
 
 ### In memory storage
 
@@ -41,21 +57,18 @@ You can make sure that, even if the application using the client stops, you can 
 </dependencies>
 ```
 
-Requirements
-============
+## Requirements
 
 -	Maven
 -	JDK 8
 
 If you want to use the persistent version of the client (the one that stores pending notifications in a MySQL database) you also need a MySQL server running and a database.
 
-Usage
-=====
+## Usage
 
 Then we need to create an instance of the `Client` class, so we can use that instance to create and send notifications.
 
-Configure a database
---------------------
+### Configure a database
 
 If you are using the `client` that stores pending notifications in memory you can skip this step.
 
@@ -72,12 +85,11 @@ updateRepositoryStructureIfNeeded = true
 
 Change the `dbAlias`, `dbUsername` and `dbPassword` according to your database settings.
 
-Instantiate the client
-----------------------
+### Instantiate the client
 
 To instantiate a client you need to use `NotificationsClientFactory` class. You can do it using one of the two possible ways. Using a properties file and passing the needed values directly.
 
-### Using a properties file
+#### Using a properties file
 
 First, you need a file `notifications.properties` at`src/main/resources` that looks like this:
 
@@ -107,7 +119,7 @@ NotificationsClient client = NotificationsClientFactory,getClientFromPropertiesF
 NotificationsClient client = NotificationsClientFactory,getClientFromPropertiesFile("filename", new NotificationsClientFFBackend());
 ```
 
-### Passing the needed parameters directly
+#### Passing the needed parameters directly
 
 If you don't want to use a properties file you can pass all the parameters directly to the `NotificationsClientFactory` class:
 
@@ -119,8 +131,7 @@ NotificationsClient client = NotificationsClientFactory.getClient("url", "app Id
 NotificationsClient client = NotificationsClientFactory.getClient("url", "app Id", "app Secret", new NotificationsClientFFBackend());
 ```
 
-Send a notification
--------------------
+### Send a notification
 
 After you have instantiated the `NotificationsClient` class you can use that instance to create and send notifications.
 
